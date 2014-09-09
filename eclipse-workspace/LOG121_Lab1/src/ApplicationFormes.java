@@ -14,6 +14,8 @@ Historique des modifications
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JOptionPane;
+
 /**
  * Cette classe représente l'application dans son ensemble. 
  * @author Patrice Boucher
@@ -33,7 +35,12 @@ public class ApplicationFormes{
 	 * Constructeur
 	 */
 	public ApplicationFormes(){
-		CommBase comm = new CommBase();
+		String adresse = JOptionPane.showInputDialog("Quel est le nom d'hôte du serveur de formes?");
+		String[] split = adresse.split(":");
+		CommBase comm = new CommBase(
+				split[0],
+				Integer.parseInt(split[1])
+		);
 		FenetrePrincipale fenetre = new FenetrePrincipale(comm);
 		comm.setPropertyChangeListener(fenetre);
 	}

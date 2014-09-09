@@ -11,6 +11,11 @@ Historique des modifications
 *******************************************************/  
 
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 import javax.swing.SwingWorker;
 
 /**
@@ -22,15 +27,19 @@ public class CommBase {
 	private SwingWorker threadComm =null;
 	private PropertyChangeListener listener = null;
 	private boolean isActif = false;
+	private String hostname;
+	private int port;
 	
 	/**
 	 * Constructeur
 	 */
-	public CommBase(){
+	public CommBase(String hostname, int port){
+		this.hostname = hostname;
+		this.port = port;
 	}
 	
 	/**
-	 * Définir le récepteur de l'information reçue dans la communication avec le serveur
+	 * Dï¿½finir le rï¿½cepteur de l'information reï¿½ue dans la communication avec le serveur
 	 * @param listener sera alertÃ© lors de l'appel de "firePropertyChanger" par le SwingWorker
 	 */
 	public void setPropertyChangeListener(PropertyChangeListener listener){
@@ -62,11 +71,25 @@ public class CommBase {
 			@Override
 			protected Object doInBackground() throws Exception {
 				System.out.println("Le fils d'execution parallele est lance");
+
+				/*
+				 * Code pour socket empruntÃ©: http://stackoverflow.com/questions/3763511/sending-telnet-commands-and-reading-the-response-with-java
+				 */
+				Socket socket = new Socket(hostname, port);
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(
+						new InputStreamReader(socket.getInputStream())
+				);
+
 				while(true){
 					Thread.sleep(DELAI);
-					
+
 					// C'EST DANS CETTE BOUCLE QU'ON COMMUNIQUE AVEC LE SERVEUR
-					
+					out.println("GET");
+					String forme = in.readLine();
+					System.out.println(forme);
+
+
  					//La mÃ©thode suivante alerte l'observateur 
 					if(listener!=null)
 					   firePropertyChange("ENVOIE-TEST", null, (Object) "."); 
