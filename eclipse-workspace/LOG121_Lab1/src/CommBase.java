@@ -86,7 +86,11 @@ public class CommBase {
 
 					// C'EST DANS CETTE BOUCLE QU'ON COMMUNIQUE AVEC LE SERVEUR
 					out.println("GET");
-					String forme = in.readLine();
+					String chaineForme = in.readLine();
+					System.out.println("Forme recue:" + chaineForme);
+					
+					//On créé une forme
+					Forme forme = CreateurFormes.getInstance().creerForme(chaineForme);
 					System.out.println(forme);
 
 
