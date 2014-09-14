@@ -18,5 +18,10 @@ Historique des modificaitons
 
 
 public class Forme {
-
+	private int numero_sequence;
+	
+	public Forme(int numero_sequence){
+		this.numero_sequence = numero_sequence;
+	}
+	
 }
