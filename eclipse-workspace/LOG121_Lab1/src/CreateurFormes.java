@@ -63,7 +63,7 @@ public class CreateurFormes {
 		Forme forme = null;
 
 		if (matcher.matches()){
-			String nseq = matcher.group(1);
+			int nseq = Integer.parseInt(matcher.group(1));
 			String typeForme = matcher.group(2);
 
 			/*
@@ -77,19 +77,23 @@ public class CreateurFormes {
 
 			switch (typeForme) {
 			case "CERCLE":
-				forme = new Cercle();
+				forme = new Cercle(nseq);
 				break;
 			case "OVALE":
-				forme = new Ovale();
+				forme = new Ovale(nseq);
 				break;
 			case "LIGNE":
-				forme = new Ligne();
+				forme = new Ligne(nseq);
 				break;
 			case "RECTANGLE":
 				forme = new Rectangle();
 				break;
 			case "CARRE":
-				forme = new Carre();
+				forme = new Carre(nseq,
+								  points[0],
+								  points[1],
+								  points[2],
+								  points[3]);
 				break;
 			}
 		}
