@@ -14,7 +14,7 @@ public class Cercle extends Forme {
 	}
 
 	public void dessiner(Graphics g){
-		super.dess iner(g);
+		super.dessiner(g);
 		g.fillOval(
 					centreX - rayon,
 					centreY + rayon,
