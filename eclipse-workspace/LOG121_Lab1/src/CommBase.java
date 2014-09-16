@@ -27,16 +27,13 @@ public class CommBase {
 	private SwingWorker threadComm =null;
 	private PropertyChangeListener listener = null;
 	private boolean isActif = false;
-	private String hostname;
-	private int port;
+	String hostname;
+	int port;
 
 	/**
 	 * Constructeur
 	 */
-	public CommBase(String hostname, int port){
-		this.hostname = hostname;
-		this.port = port;
-	}
+	public CommBase(){}
 
 	/**
 	 * D�finir le r�cepteur de l'information re�ue dans la communication avec le serveur
@@ -47,9 +44,11 @@ public class CommBase {
 	}
 
 	/**
-	 * Démarre la communication
+	 * Démarre la communication sur l'hôte et l'adresse spécifiés
 	 */
-	public void start(){
+	public void start(String hostname, int port){
+		this.hostname = hostname;
+		this.port = port;
 		creerCommunication();
 	}
 

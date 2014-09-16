@@ -8,11 +8,12 @@ Historique des modifications
 *******************************************************
 *@author Patrice Boucher
 2013-05-03 Version initiale
-*******************************************************/  
+*******************************************************/
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -23,7 +24,7 @@ import javax.swing.KeyStroke;
  * Crée le menu de la fenêtre de l'applicationé
  */
 public class MenuFenetre extends JMenuBar{
-	
+
 	private static final long serialVersionUID = 1536336192561843187L;
 	private static final int  MENU_DESSIN_ARRETER_TOUCHE_MASK  = ActionEvent.CTRL_MASK;
 	private static final char MENU_DESSIN_ARRETER_TOUCHE_RACC  = KeyEvent.VK_A;
@@ -39,13 +40,13 @@ public class MenuFenetre extends JMenuBar{
 			MENU_DESSIN_ARRETER = "app.frame.menus.draw.stop",
 			MENU_AIDE_TITRE = "app.frame.menus.help.title",
 			MENU_AIDE_PROPOS = "app.frame.menus.help.about";
-	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";  
+	private static final String MESSAGE_DIALOGUE_A_PROPOS = "app.frame.dialog.about";
 
 	private JMenuItem arreterMenuItem, demarrerMenuItem;
 	private static final int DELAI_QUITTER_MSEC = 200;
- 	   
+
 	CommBase comm; // Pour activer/désactiver la communication avec le serveur
-	
+
 	/**
 	 * Constructeur
 	 */
@@ -57,7 +58,7 @@ public class MenuFenetre extends JMenuBar{
 	}
 
 	/**
-	 *  Créer le menu "Draw". 
+	 *  Créer le menu "Draw".
 	 */
 	protected void addMenuDessiner() {
 		JMenu menu = creerMenu(MENU_DESSIN_TITRE,new String[] { MENU_DESSIN_DEMARRER, MENU_DESSIN_ARRETER });
@@ -65,7 +66,9 @@ public class MenuFenetre extends JMenuBar{
 		demarrerMenuItem = menu.getItem(0);
 		demarrerMenuItem.addActionListener(new ActionListener(){
 		  public void actionPerformed(ActionEvent arg0) {
-			comm.start();
+			String adresse = JOptionPane.showInputDialog("Quel est le nom d'hôte du serveur de formes?");
+			String[] split = adresse.split(":");
+			comm.start(split[0], Integer.parseInt(split[1]));
 			rafraichirMenus();
 		  }
 		});
@@ -80,15 +83,15 @@ public class MenuFenetre extends JMenuBar{
 			rafraichirMenus();
 		    }
 	    });
-		
+
 		arreterMenuItem.setAccelerator(KeyStroke.getKeyStroke(
 				MENU_DESSIN_ARRETER_TOUCHE_RACC,
 				MENU_DESSIN_ARRETER_TOUCHE_MASK));
 		add(menu);
 	}
 
-	/** 
-	 * Créer le menu "File". 
+	/**
+	 * Créer le menu "File".
 	 */
 	protected void addMenuFichier() {
 		JMenu menu = creerMenu(MENU_FICHIER_TITRE, new String[] { MENU_FICHIER_QUITTER });
@@ -110,13 +113,13 @@ public class MenuFenetre extends JMenuBar{
 	}
 
 	/**
-	 *  Créer le menu "Help". 
+	 *  Créer le menu "Help".
 	 */
 	private void addMenuAide() {
 		JMenu menu = creerMenu(MENU_AIDE_TITRE, new String[] { MENU_AIDE_PROPOS });
 		menu.getItem(0).addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null,  LangueConfig.getResource(MESSAGE_DIALOGUE_A_PROPOS), 
+				JOptionPane.showMessageDialog(null,  LangueConfig.getResource(MESSAGE_DIALOGUE_A_PROPOS),
 						LangueConfig.getResource(MENU_AIDE_PROPOS), JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
@@ -124,13 +127,13 @@ public class MenuFenetre extends JMenuBar{
 	}
 
 	/**
-	 *  Activer ou désactiver les items du menu selon la sélection. 
+	 *  Activer ou désactiver les items du menu selon la sélection.
 	 */
 	private void rafraichirMenus() {
 		demarrerMenuItem.setEnabled(!comm.isActif());
 		arreterMenuItem.setEnabled(comm.isActif());
 	}
-	
+
 	/**
 	 * Créer un élément de menu à partir d'un champs principal et ses éléments
 	 * @param titleKey champs principal
