@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 /****************************************
 Cours:              LOG121
 Session:            Automne 2014
@@ -17,14 +20,25 @@ Historique des modificaitons
  *****************************************/
 
 public class Ovale extends Forme {
-	private int x1, x2, x3, x4;
+	private int centreX, centreY, rayonH, rayonV;
 
-	public Ovale(int numero_sequence, int x1, int x2, int x3, int x4){
+	public Ovale(int numero_sequence, int centreX, int centreY, int rayonH, int rayonV){
 		super(numero_sequence);
-		this.x1 = x1;
-		this.x2 = x2;
-		this.x3 = x3;
-		this.x4 = x4;
+		color = Color.PINK;
+		this.centreX = centreX;
+		this.centreY = centreY;
+		this.rayonH = rayonH;
+		this.rayonV = rayonV;
+	}
+	
+	public void dessiner(Graphics g){
+		super.dessiner(g);
+		g.fillOval(
+					centreX - rayonV,
+					centreY + rayonH,
+					(rayonV*2),
+					(rayonH*2)
+				);
 	}
 
 }

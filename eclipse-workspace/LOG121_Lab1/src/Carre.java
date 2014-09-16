@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 /****************************************
 Cours:              LOG121
 Session:            Automne 2014
@@ -21,10 +24,16 @@ public class Carre extends Forme {
 
 	public Carre(int numero_sequence, int x1, int y1, int x2, int y2){
 		super(numero_sequence);
+		color = Color.RED;
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
+	}
+
+	public void dessiner(Graphics g){
+		super.dessiner(g);
+		g.fillRect(x1, y2, (x2 - x1), (y2 -y1));
 	}
 
 }

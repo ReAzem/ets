@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
 /****************************************
 Cours:              LOG121
 Session:            Automne 2014
@@ -17,11 +20,28 @@ Historique des modificaitons
 *****************************************/
 
 
-public class Forme {
+public abstract class Forme {
+
+	/**
+	 * Le numéro de séquence de la forme
+	 */
 	private int numero_sequence;
-	
+
+	/**
+	 * La couleur de la forme
+	 */
+	protected Color color;
+
 	public Forme(int numero_sequence){
 		this.numero_sequence = numero_sequence;
 	}
-	
+
+	/**
+	 * Dessine la forme
+	 * @param g Graphics
+	 */
+	public void dessiner(Graphics g){
+		g.setColor(this.color);
+	}
+
 }

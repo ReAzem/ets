@@ -16,18 +16,22 @@ Historique des modificaitons
 2014-09-12          Version initiale
  *****************************************/
 
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import ca.etsmtl.log.util.IDLogger;
 
 public class CreateurFormes {
 
 	private static CreateurFormes createurFormes = new CreateurFormes();
+	private static IDLogger idLogger= IDLogger.getInstance();
 
 	/*
 	 * Input possible:
 	 * 9999 <CARRE> x1 y1 x2 y2 </CARRE>
 	 * 9999 <RECTANGLE> x1 y1 x2 y2 </RECTANGLE>
 	 * 9999 <CERCLE> centreX centreY rayon </CERCLE>
-	 * 49152 <OVALE> 164 82 10 69 </OVALE>
+	 * 49152 <OVALE> centreX centreY rayonH rayonV </OVALE>
 	 * 9999 <LIGNE> x1 y1 x2 y2 </LIGNE>
 	 * Regex sans escape: (\p{Alnum}+) <(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>(( \p{Alnum}+)+) </(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>
 	 * Doc regex: http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html
@@ -64,6 +68,8 @@ public class CreateurFormes {
 
 		if (matcher.matches()){
 			int nseq = Integer.parseInt(matcher.group(1));
+			idLogger.logID(nseq);
+
 			String typeForme = matcher.group(2);
 
 			/*
@@ -77,23 +83,19 @@ public class CreateurFormes {
 
 			switch (typeForme) {
 			case "CERCLE":
-				forme = new Cercle(nseq);
+				forme = new Cercle(nseq, points[0], points[1], points[2]);
 				break;
 			case "OVALE":
-				forme = new Ovale(nseq);
+				forme = new Ovale(nseq, points[0], points[1], points[2], points[3]);
 				break;
 			case "LIGNE":
-				forme = new Ligne(nseq);
+				forme = new Ligne(nseq, points[0], points[1], points[2], points[3]);
 				break;
 			case "RECTANGLE":
-				forme = new Rectangle();
+				forme = new Rectangle(nseq, points[0], points[1], points[2], points[3]);
 				break;
 			case "CARRE":
-				forme = new Carre(nseq,
-								  points[0],
-								  points[1],
-								  points[2],
-								  points[3]);
+				forme = new Carre(nseq, points[0], points[1], points[2], points[3]);
 				break;
 			}
 		}
