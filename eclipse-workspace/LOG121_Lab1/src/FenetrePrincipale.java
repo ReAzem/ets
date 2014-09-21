@@ -25,7 +25,7 @@ import javax.swing.JFrame;
 public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 
 	private static final long serialVersionUID = -1210804336046370508L;
-	private LinkedList<Forme> formes = new LinkedList<Forme>();
+	private ListeFormes formes = new ListeFormes();
 	FenetreFormes fenetreFormes = new FenetreFormes(formes);
 
 	/**
@@ -48,11 +48,7 @@ public class FenetrePrincipale extends JFrame implements PropertyChangeListener{
 
 		if(arg0.getPropertyName().equals("Forme")){
 			Forme nouvelle_forme = (Forme) arg0.getNewValue();
-			formes.add(nouvelle_forme);
-
-			if (formes.size() == 11){
-				formes.removeFirst();
-			}
+			formes.ajouter(nouvelle_forme);
 
 			fenetreFormes.repaint();
 			System.out.println("Property change: " + nouvelle_forme);
