@@ -57,7 +57,7 @@ public class CommBase {
 	 */
 	public void stop(){
 		if(threadComm!=null)
-			threadComm.cancel(true);
+			threadComm.cancel(false);
 		isActif = false;
 	}
 
@@ -80,8 +80,7 @@ public class CommBase {
 						new InputStreamReader(socket.getInputStream())
 				);
 
-				while(true){
-					Thread.sleep(DELAI);
+				while(!isCancelled()){
 
 					// C'EST DANS CETTE BOUCLE QU'ON COMMUNIQUE AVEC LE SERVEUR
 					out.println("GET");
@@ -93,8 +92,12 @@ public class CommBase {
  					//La méthode suivante alerte l'observateur
 					if(listener!=null && forme != null)
 					   firePropertyChange("Forme", null, forme);
+
+					Thread.sleep(DELAI);
 				}
-				//return null;
+				out.println("END");
+				socket.close();
+				return null;
 			}
 		};
 		if(listener!=null)
