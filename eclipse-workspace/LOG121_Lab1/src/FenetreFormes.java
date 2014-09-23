@@ -27,12 +27,12 @@ public class FenetreFormes extends JComponent{
 	public static final int WIDTH = 500;
 	public static final int HEIGHT = 500;
 	public static final Dimension dimension = new Dimension(500,500);
-	private LinkedList<Forme> formes;
+	private ListeFormes formes;
 
 	/**
 	 * Constructeur
 	 */
-	public FenetreFormes(LinkedList<Forme> formes){
+	public FenetreFormes(ListeFormes formes){
 		this.formes = formes;
 	}
 
