@@ -36,7 +36,7 @@ public class CreateurFormes {
 	 * Regex sans escape: (\p{Alnum}+) <(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>(( \p{Alnum}+)+) </(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>
 	 * Doc regex: http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html
 	 */
-	Pattern pattern = Pattern.compile("(\\p{Alnum}+) <(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>(( \\p{Alnum}+)+) </(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>");
+	private Pattern pattern = Pattern.compile("(\\p{Alnum}+) <(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>(( \\p{Alnum}+)+) </(CERCLE|OVALE|LIGNE|RECTANGLE|CARRE)>");
 
 
 	/*
