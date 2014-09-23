@@ -40,7 +40,7 @@ public abstract class Forme {
 	 * Dessine la forme
 	 * @param g Graphics
 	 */
-	public void dessiner(Graphics g){
+	protected void dessiner(Graphics g){
 		g.setColor(this.color);
 	}
 
