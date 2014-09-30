@@ -33,7 +33,7 @@ public class Rectangle extends Forme {
 
 	public void dessiner(Graphics g){
 		super.dessiner(g);
-		g.fillRect(x1, y2, (x2 - x1), (y2 -y1));
+		g.fillRect(x1, y1, (x2 - x1), (y2 -y1));
 	}
 
 }
