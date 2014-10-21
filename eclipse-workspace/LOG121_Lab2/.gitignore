@@ -1,0 +1,6 @@
+/bin/
+IDLogger
+/dist/
+
+# Eclipse
+.settings/org.eclipse.core.resources.prefs
